@@ -1,0 +1,85 @@
+# install **wget** if not already installed:
+sudo apt install -y wget
+
+# import the repository signing key:
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+# add repository contents to your system:
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+
+# install and launch the postgresql service:
+sudo apt install postgresql-12 postgresql-client-12 -y
+sudo pg_ctlcluster 12 main start
+sudo pg_ctlcluster 12 main enable
+sudo pg_ctlcluster 12 main restart
+
+# Once PostgreSQL is installed you may want to create a new user or set the password for the the main user.
+# The instructions below will help to set the password for main postgresql user
+
+sudo passwd postgres
+su - postgres
+createuser pgadmin
+psql
+ALTER USER pgadmin WITH ENCRYPTED password 'your_password';
+# for thinksboard setting
+# /*
+# Then, press “Ctrl+D” to return to main user console and connect to the database to create thingsboard DB:
+# psql -U postgres -d postgres -h 127.0.0.1 -W
+# CREATE DATABASE thingsboard;
+# \q
+# */
+CREATE DATABASE pgadmindb OWNER pgadmin;
+GRANT ALL PRIVILEGES ON DATABASE pgadmindb to pgadmin;
+\q
+exit
+
+sudo nano /etc/postgresql/*/main/postgresql.conf
+
+Find the following line.
+
+#listen_addresses = 'localhost'
+To listen to all IP addresses, change the line to the below code and save the file.
+
+listen_addresses = '*'
+Open the file pg_hba.conf.
+
+# nano /etc/postgresql/12/main/pg_hba.conf
+
+At the end of the file add the following lines and save the file.
+
+host    all             all              0.0.0.0/0              md5
+
+host    all             all              ::/0                   md5
+Restart the PostgreSQL Database Server service to ensure the changes are saved.
+
+$ sudo pg_ctlcluster 12 main restart
+or
+$ sudo service postgresql restart
+
+
+## Install pgAdmin 4
+# Install all required dependencies for pgAdmin 4 installation.
+
+$ sudo apt-get install curl gnupg2 -y
+Import the repository PGP signing key for pgAdmin.
+
+$ sudo curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+Add pgAdmin 4 APT repository.
+
+$ sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt-get update --allow-insecure-repositories'
+
+sudo apt install pgadmin4-web -y
+
+Configure the web mode. You'll be required to enter an email address and a password for later login.
+
+$ sudo /usr/pgadmin4/bin/setup-web.sh
+For UFW firewall configured, allow http or https traffic depending on what you are using.
+
+$ sudo ufw allow http
+
+$ sudo ufw allow https
+After installation, open your browser and go to http://ServerIP/pgadmin4 to access the pgAdmin 4 user interface. For example:
+
+http://192.0.2.48/pgadmin4
+Login with the email address and password that you set during pgAdmin 4 web mode configuration.
+
