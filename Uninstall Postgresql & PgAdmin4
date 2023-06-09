@@ -1,0 +1,11 @@
+1. sudo apt-get — purge remove postgresql
+2. dpkg -l|grep postgres
+3. sudo apt-get — purge remove pgdg-keyring postgresql*
+4. sudo rm -rf /var/log/postgresql/
+5. sudo rm -rf /var/lib/postgresql/
+6. sudo rm -rf /etc/postgresql/
+7. sudo deluser postgres
+8. sudo delgroup postgres
+
+How to remove pgAdmin 4 from Ubuntu 18.04.4 LTS
+1.sudo apt autoremove pgadmin4
