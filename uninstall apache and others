@@ -11,6 +11,11 @@ sudo apt-get autoremove
 whereis apache2
 sudo rm -rf /etc/apache2
 
+# this will remove nginx
+
+sudo apt-get purge nginx nginx-common
+sudo apt-get autoremove
+sudo rm -rf /etc/nginx
 # This will remove PHP version. Type your php version before run below command. I am using php 8.0.x change yours...
 
 php --version
