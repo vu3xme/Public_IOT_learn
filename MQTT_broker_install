@@ -10,5 +10,51 @@ mosquitto -v
 # 1) Run the following command, but replace YOUR_USERNAME with the username you want to use:
 
 sudo mosquitto_passwd -c /etc/mosquitto/passwd YOUR_USERNAME
-# save username and password
+sudo mosquitto_passwd -c /etc/mosquitto/passwd Your_password
+# save username and password for future use
+# This previous command creates a password file called passwd on the /etc/mosquitto directory. Now, we need to edit the mosquitto configuration file so that it only allows authentication with the username and password we’ve defined.
+# 2) Run the following command to edit the configuration file:
+
+sudo nano /etc/mosquitto/mosquitto.conf
+# Add the following line at the top of the file (make sure it is at the top of the file, otherwise it won’t work):
+/*
+per_listener_settings true
+allow_anonymous false
+listener 1883
+password_file /etc/mosquitto/passwd
+*/
+
+# final look of the file like below
+
+/*
+# Place your local configuration in /etc/mosquitto/conf.d/
+#
+# A full description of the configuration file is at
+# /usr/share/doc/mosquitto/examples/mosquitto.conf.example
+#below line add first line otherwise not work
+/*
+per_listener_settings true 
+allow_anonymous false
+listener 1883
+password_file /etc/mosquitto/passwd
+pid_file /run/mosquitto/mosquitto.pid
+
+persistence true
+persistence_location /var/lib/mosquitto/
+
+log_dest file /var/log/mosquitto/mosquitto.log
+
+include_dir /etc/mosquitto/conf.d
+#file here added line
+allow_anonymous false
+listener 1883
+password_file /etc/mosquitto/passwd
+
+*/
+
+# 6) Restart Mosquitto for the changes to take effect.
+sudo systemctl restart mosquitto
+ sudo systemctl status mosquitto
+
+
 
