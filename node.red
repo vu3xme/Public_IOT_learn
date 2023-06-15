@@ -41,15 +41,16 @@ KillSignal=SIGINT
 SyslogIdentifier=node-red
 StandardOutput=syslog
 
+#non root user sudo acces like create user_name= kakdwip the user_name replace with kakdwip
 # non-root user to run as
-#WorkingDirectory=/home/rui/
-#User=rui
-#Group=rui
+WorkingDirectory=/home/user_name/
+User=user_name
+Group=user_name
 
 # if using a root user
-WorkingDirectory=/root/
-User=root
-Group=root
+#WorkingDirectory=/root/
+#User=root
+#Group=root
 
 [Install]
 WantedBy=multi-user.target
