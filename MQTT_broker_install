@@ -1,0 +1,14 @@
+sudo apt update && sudo apt upgrade -y
+# To install the Mosquitto Broker enter the next command:
+sudo apt install -y mosquitto mosquitto-clients
+# To make Mosquitto auto start when the server boots
+sudo systemctl enable mosquitto.service
+mosquitto -v
+# Enable Remote Access/ Authentication
+# To enable remote access so that we can communicate with IoT devices, we need to edit/create a configuration file.
+# We’ll add authentication with user and password.
+# 1) Run the following command, but replace YOUR_USERNAME with the username you want to use:
+
+sudo mosquitto_passwd -c /etc/mosquitto/passwd YOUR_USERNAME
+# save username and password
+
