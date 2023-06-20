@@ -1,0 +1,12 @@
+# #Influx installation
+
+sudo apt-get update && sudo apt-get upgrade -y
+
+# please chek the version of the influxdb
+wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.7.0-amd64.deb
+sudo dpkg -i influxdb2-2.7.0-amd64.deb
+sudo systemctl unmask influxdb
+sudo systemctl start influxdb
+sudo systemctl enable influxdb
+
+
