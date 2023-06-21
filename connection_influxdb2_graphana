@@ -1,0 +1,17 @@
+# connecting influxdb2 to graphana
+# you define influxdb setup
+# keep ready bucket id and api token...must be note with notepad save it has shown one time
+# go to graphana setting
+# define name 
+# Query Language - must set to flux (for influxdb2)
+# HTTP- URL- http://192.168.0.108:8086
+# Auth -Basic auth
+# Basic Auth Details -set username and password of influxdb
+# InfluxDB Details ->Organization- demo
+# Token- fdsfbshfiusdfhds
+# Default Bucket -jhbfdijsfikhfd
+# finally save and test- green datasource is working. 11 buckets found
+Next, you can start to visualize data by building a dashboard, or by querying data in the Explore view. 
+
+
+
